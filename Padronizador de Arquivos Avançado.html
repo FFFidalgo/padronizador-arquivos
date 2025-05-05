@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)https://rzwrvmcd.genspark.space/ -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padronizador de Arquivos Avançado</title>
+    <link href="./Padronizador de Arquivos Avançado_files/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Padronizador de Arquivos Avançado_files/all.min.css">
+    <style>
+        :root {
+            --primary-color: #5D3FD3;
+            --primary-dark: #4C32B0;
+            --secondary-color: #64748b;
+            --background-color: #f8f8fb;
+            --surface-color: #ffffff;
+            --text-color: #334155;
+            --border-color: #e2e8f0;
+            --success-color: #22c55e;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            background-color: var(--surface-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+        }
+
+        .dropzone {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dropzone.highlight {
+            border-color: var(--primary-color);
+            background-color: rgba(93, 63, 211, 0.05);
+        }
+
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .primary:disabled {
+            background-color: var(--secondary-color);
+            cursor: not-allowed;
+        }
+
+        .secondary {
+            background-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        .secondary:hover {
+            background-color: #d1dae6;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .checkbox-container, .radio-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            user-select: none;
+        }
+
+        .checkbox-container input, .radio-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark, .radio-mark {
+            position: absolute;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #fff;
+            border: 2px solid var(--border-color);
+        }
+
+        .checkmark {
+            border-radius: 4px;
+        }
+
+        .radio-mark {
+            border-radius: 50%;
+        }
+
+        .checkbox-container:hover input ~ .checkmark,
+        .radio-container:hover input ~ .radio-mark {
+            border-color: var(--primary-color);
+        }
+
+        .checkbox-container input:checked ~ .checkmark,
+        .radio-container input:checked ~ .radio-mark {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .checkmark:after, .radio-mark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after,
+        .radio-container input:checked ~ .radio-mark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .radio-container .radio-mark:after {
+            left: 5px;
+            top: 5px;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .accordion-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: var(--surface-color);
+            padding: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(93, 63, 211, 0.05);
+        }
+
+        .accordion-header h3 {
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .accordion-header p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-top: 4px;
+        }
+
+        .accordion-content {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .accordion-item.active .accordion-content {
+            display: block;
+        }
+
+        .regex-tester {
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        .regex-result {
+            font-family: monospace;
+            padding: 0.75rem;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 6px;
+            margin: 0.5rem 0 1rem;
+        }
+
+        .example-block {
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+
+        code {
+            background-color: #e2e8f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .file-item {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-item {
+            display: flex;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .preview-original, .preview-new {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .preview-arrow {
+            padding: 0 1rem;
+            color: var(--secondary-color);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .preview-item {
+                flex-direction: column;
+            }
+            .preview-arrow {
+                padding: 0.5rem 0;
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="text-3xl font-bold">Padronizador de Arquivos Avançado</h1>
+        <p class="mt-2">Renomeie e padronize seus arquivos com Regex e Numeração Sequencial</p>
+    </header>
+
+    <main>
+        <section class="dropzone" id="drop-area">
+            <div class="upload-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <p class="text-lg font-medium">Arraste seus arquivos aqui</p>
+            <p>ou</p>
+            <button class="btn primary mt-3" id="file-selector">Selecionar arquivos</button>
+            <input type="file" id="fileElem" multiple="" accept="*/*" style="display:none">
+        </section>
+
+        <section class="file-list">
+            <h3 class="text-xl font-medium">Arquivos selecionados (<span id="file-count">0</span>)</h3>
+            <div id="file-list-container"></div>
+        </section>
+
+        <section class="tools">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-lg font-medium">Substituição com Regex</h3>
+                        <p>Use expressões regulares para substituições avançadas</p>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="use-regex">
+                                <span class="checkmark"></span>
+                                Usar expressões regulares
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-pattern">Procurar por:</label>
+                            <input type="text" id="search-pattern" placeholder="Padrão de busca...">
+                        </div>
+                        <div class="form-group">
+                            <label for="replace-pattern">Substituir por:</label>
+                            <input type="text" id="replace-pattern" placeholder="Texto de substituição...">
+                        </div>
+                        <div class="regex-tester">
+                            <h4 class="text-md font-medium">Testador de Regex</h4>
+                            <div id="regex-test-result" class="regex-result">Resultado aparecerá aqui</div>
+                            <p><strong>Exemplos:</strong></p>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li><code>img_(\d+)</code> - captura números após "img_"</li>
+                                <li><code>^(.*?)_(\d+)\.jpg$</code> - separa nome e número</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-lg font-medium">Adicionar prefixo/sufixo</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label for="prefix">Prefixo:</label>
+                            <input type="text" id="prefix" placeholder="Texto no início do nome...">
+                        </div>
+                        <div class="form-group">
+                            <label for="suffix">Sufixo (antes da extensão):</label>
+                            <input type="text" id="suffix" placeholder="Texto antes da extensão...">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="allow-reference">
+                                <span class="checkmark"></span>
+                                Permitir referências de grupo ($1, $2) de regex
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-lg font-medium">Formatar texto</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label class="radio-container">
+                                <input type="radio" name="case" value="lowercase">
+                                <span class="radio-mark"></span>
+                                Minúsculas
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="radio-container">
+                                <input type="radio" name="case" value="uppercase">
+                                <span class="radio-mark"></span>
+                                MAIÚSCULAS
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="radio-container">
+                                <input type="radio" name="case" value="capitalize">
+                                <span class="radio-mark"></span>
+                                Primeira Letra Maiúscula
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remove-spaces">
+                                <span class="checkmark"></span>
+                                Remover espaços
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="replace-spaces">Substituir espaços por:</label>
+                            <input type="text" id="replace-spaces" placeholder="_">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remove-accents">
+                                <span class="checkmark"></span>
+                                Remover acentos
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-lg font-medium">Numeração Sequencial</h3>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label for="start-number">Número inicial:</label>
+                            <input type="number" id="start-number" value="1" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="increment">Incremento:</label>
+                            <input type="number" id="increment" value="1" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="number-format">Formato:</label>
+                            <select id="number-format">
+                                <option value="prefix">Prefixo (001_arquivo.txt)</option>
+                                <option value="suffix">Sufixo (arquivo_001.txt)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="padding">Dígitos (preenchimento com zeros):</label>
+                            <input type="number" id="padding" value="3" min="1" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="separator">Separador:</label>
+                            <input type="text" id="separator" value="_" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="sort-by">Ordenar arquivos por:</label>
+                            <select id="sort-by">
+                                <option value="name">Nome (alfabético)</option>
+                                <option value="date">Data de modificação</option>
+                                <option value="size">Tamanho do arquivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3 class="text-lg font-medium">Extração com padrões</h3>
+                        <p>Extrair partes específicas do nome usando regex e referenciá-las</p>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="use-extraction">
+                                <span class="checkmark"></span>
+                                Ativar extração de padrões
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="extraction-pattern">Padrão de extração:</label>
+                            <input type="text" id="extraction-pattern" placeholder="Ex: ^(.*)_(\d+)$">
+                            <p class="text-sm text-gray-500 mt-1">Use parênteses para definir grupos de captura. Acesse-os como $1, $2, etc.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="output-template">Template de saída:</label>
+                            <input type="text" id="output-template" placeholder="Ex: $2_$1">
+                            <p class="text-sm text-gray-500 mt-1">Use $1, $2 para se referir aos grupos capturados no padrão acima.</p>
+                        </div>
+                        <div class="example-block">
+                            <p><strong>Exemplo:</strong> Para o arquivo "documento_2023.pdf"</p>
+                            <p>Padrão <code>^(.*)_(\d+)$</code> captura "documento" como $1 e "2023" como $2</p>
+                            <p>Template <code>$2_$1</code> resultará em "2023_documento.pdf"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="preview">
+            <h3 class="text-xl font-medium">Prévia dos resultados</h3>
+            <div id="preview-container"></div>
+        </section>
+
+        <section class="actions">
+            <button class="btn secondary" id="reset-btn">Limpar</button>
+            <button class="btn primary" id="download-btn" disabled="">
+                <i class="fas fa-download"></i> Baixar arquivos renomeados
+            </button>
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido para padronização de nomes de arquivos | 2025</p>
+    </footer>
+
+    <script src="./Padronizador de Arquivos Avançado_files/jszip.min.js.baixados"></script>
+    <script>
+        // Classes de utilidades
+        class RegexHelper {
+            replaceWithRegex(text, pattern, replacement) {
+                if (!pattern) return text;
+                
+                try {
+                    const regex = new RegExp(pattern, 'g');
+                    const result = text.replace(regex, replacement || '');
+                    
+                    const matches = text.match(regex);
+                    if (matches) {
+                        const testMatch = new RegExp(pattern);
+                        const captures = testMatch.exec(text);
+                        if (captures) {
+                            window.lastCaptures = captures;
+                        }
+                    }
+                    
+                    return result;
+                } catch (e) {
+                    console.error('Erro ao aplicar regex:', e);
+                    return text;
+                }
+            }
+            
+            extractWithPattern(text, pattern, template) {
+                if (!pattern || !template) return text;
+                
+                try {
+                    const regex = new RegExp(pattern);
+                    const matches = regex.exec(text);
+                    
+                    if (!matches) return text;
+                    
+                    window.lastCaptures = matches;
+                    
+                    const lastDotIndex = text.lastIndexOf('.');
+                    let extension = '';
+                    
+                    if (lastDotIndex !== -1) {
+                        extension = text.substring(lastDotIndex);
+                    }
+                    
+                    let result = this.replaceReferences(template, matches);
+                    
+                    if (extension && !result.endsWith(extension)) {
+                        result += extension;
+                    }
+                    
+                    return result;
+                } catch (e) {
+                    console.error('Erro ao extrair com padrão:', e);
+                    return text;
+                }
+            }
+            
+            replaceReferences(text, captures) {
+                if (!text || !captures || captures.length === 0) return text;
+                
+                let result = text;
+                for (let i = 1; i < captures.length; i++) {
+                    const placeholder = `$${i}`;
+                    const value = captures[i] || '';
+                    result = result.replace(new RegExp('\\' + placeholder, 'g'), value);
+                }
+                
+                return result;
+            }
+        }
+
+        class SequentialNumbering {
+            applyNumbering(files, startNumber = 1, increment = 1, format = 'prefix', 
+                          padding = 3, separator = '_', sortBy = 'name') {
+                
+                const filesCopy = [...files];
+                
+                this.sortFiles(filesCopy, sortBy);
+                
+                let currentNumber = parseInt(startNumber);
+                const incValue = parseInt(increment);
+                
+                return filesCopy.map(fileObj => {
+                    const paddedNumber = this.padNumber(currentNumber, padding);
+                    
+                    const lastDotIndex = fileObj.newName.lastIndexOf('.');
+                    let name, extension;
+                    
+                    if (lastDotIndex === -1) {
+                        name = fileObj.newName;
+                        extension = '';
+                    } else {
+                        name = fileObj.newName.substring(0, lastDotIndex);
+                        extension = fileObj.newName.substring(lastDotIndex);
+                    }
+                    
+                    if (format === 'prefix') {
+                        fileObj.newName = paddedNumber + separator + name + extension;
+                    } else if (format === 'suffix') {
+                        fileObj.newName = name + separator + paddedNumber + extension;
+                    }
+                    
+                    currentNumber += incValue;
+                    
+                    return fileObj;
+                });
+            }
+            
+            padNumber(number, padding) {
+                return number.toString().padStart(padding, '0');
+            }
+            
+            sortFiles(files, sortBy) {
+                switch (sortBy) {
+                    case 'name':
+                        files.sort((a, b) => a.originalName.localeCompare(b.originalName));
+                        break;
+                        
+                    case 'date':
+                        files.sort((a, b) => {
+                            const dateA = a.originalFile.lastModified || Date.now();
+                            const dateB = b.originalFile.lastModified || Date.now();
+                            return dateA - dateB;
+                        });
+                        break;
+                        
+                    case 'size':
+                        files.sort((a, b) => a.originalFile.size - b.originalFile.size);
+                        break;
+                }
+            }
+        }
+
+        class FileProcessor {
+            addPrefixSuffix(filename, prefix = '', suffix = '', allowReference = false) {
+                if (!prefix && !suffix) return filename;
+                
+                const lastDotIndex = filename.lastIndexOf('.');
+                let name, extension;
+                
+                if (lastDotIndex === -1) {
+                    name = filename;
+                    extension = '';
+                } else {
+                    name = filename.substring(0, lastDotIndex);
+                    extension = filename.substring(lastDotIndex);
+                }
+                
+                let processedPrefix = prefix;
+                let processedSuffix = suffix;
+                
+                if (allowReference) {
+                    if (window.lastCaptures && window.lastCaptures.length > 0) {
+                        processedPrefix = regexHelper.replaceReferences(prefix, window.lastCaptures);
+                        processedSuffix = regexHelper.replaceReferences(suffix, window.lastCaptures);
+                    }
+                }
+                
+                let newName = name;
+                if (processedPrefix) newName = processedPrefix + newName;
+                if (processedSuffix) newName = newName + processedSuffix;
+                
+                return newName + extension;
+            }
+
+            processFiles(files, config) {
+                let processedFiles = files.map(file => {
+                    return {
+                        originalFile: file,
+                        originalName: file.name,
+                        newName: file.name
+                    };
+                });
+                
+                if (config.useRegex && config.searchPattern) {
+                    processedFiles = processedFiles.map(fileObj => {
+                        fileObj.newName = regexHelper.replaceWithRegex(
+                            fileObj.newName, 
+                            config.searchPattern, 
+                            config.replacePattern
+                        );
+                        return fileObj;
+                    });
+                }
+                
+                if (config.useExtraction && config.extractionPattern && config.outputTemplate) {
+                    processedFiles = processedFiles.map(fileObj => {
+                        fileObj.newName = regexHelper.extractWithPattern(
+                            fileObj.newName,
+                            config.extractionPattern,
+                            config.outputTemplate
+                        );
+                        return fileObj;
+                    });
+                }
+                
+                if (config.prefix || config.suffix) {
+                    processedFiles = processedFiles.map(fileObj => {
+                        fileObj.newName = this.addPrefixSuffix(
+                            fileObj.newName,
+                            config.prefix,
+                            config.suffix,
+                            config.allowReference
+                        );
+                        return fileObj;
+                    });
+                }
+                
+                if (config.caseOption) {
+                    processedFiles = processedFiles.map(fileObj => {
+                        switch(config.caseOption) {
+                            case 'lowercase':
+                                fileObj.newName = fileObj.newName.toLowerCase();
+                                break;
+                            case 'uppercase':
+                                fileObj.newName = fileObj.newName.toUpperCase();
+                                break;
+                            case 'capitalize':
+                                fileObj.newName = fileObj.newName.replace(/\w\S*/g, 
+                                    txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                                );
+                                break;
+                        }
+                        return fileObj;
+                    });
+                }
+                
+                if (config.removeSpaces || config.replaceSpaces) {
+                    processedFiles = processedFiles.map(fileObj => {
+                        if (config.removeSpaces) {
+                            fileObj.newName = fileObj.newName.replace(/\s+/g, '');
+                        } else if (config.replaceSpaces) {
+                            fileObj.newName = fileObj.newName.replace(/\s+/g, config.replaceSpaces);
+                        }
+                        return fileObj;
+                    });
+                }
+                
+                if (config.removeAccents) {
+                    processedFiles = processedFiles.map(fileObj => {
+                        fileObj.newName = fileObj.newName.normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, '');
+                        return fileObj;
+                    });
+                }
+                
+                if (config.useSequentialNumbering) {
+                    processedFiles = sequentialNumbering.applyNumbering(
+                        processedFiles,
+                        config.startNumber,
+                        config.increment,
+                        config.numberFormat,
+                        config.padding,
+                        config.separator,
+                        config.sortBy
+                    );
+                }
+                
+                return processedFiles;
+            }
+
+            async downloadAsZip(filesObj) {
+                const zip = new JSZip();
+                
+                for (const fileObj of filesObj) {
+                    const fileContent = await this.readFileAsArrayBuffer(fileObj.originalFile);
+                    zip.file(fileObj.newName, fileContent);
+                }
+                
+                const content = await zip.generateAsync({type: 'blob'});
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                
+                a.href = url;
+                a.download = 'arquivos_renomeados.zip';
+                a.style.display = 'none';
+                
+                document.body.appendChild(a);
+                a.click();
+                
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+            }
+
+            downloadSingleFile(fileObj) {
+                const blob = new Blob([fileObj.originalFile], { type: fileObj.originalFile.type });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                
+                a.href = url;
+                a.download = fileObj.newName;
+                a.style.display = 'none';
+                
+                document.body.appendChild(a);
+                a.click();
+                
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+            }
+
+            readFileAsArrayBuffer(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsArrayBuffer(file);
+                });
+            }
+        }
+
+        // Instanciar classes de utilidade
+        const regexHelper = new RegexHelper();
+        const sequentialNumbering = new SequentialNumbering();
+        const fileProcessor = new FileProcessor();
+
+        // Função principal
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos DOM
+            const dropArea = document.getElementById('drop-area');
+            const fileElem = document.getElementById('fileElem');
+            const fileSelector = document.getElementById('file-selector');
+            const fileCount = document.getElementById('file-count');
+            const fileListContainer = document.getElementById('file-list-container');
+            const previewContainer = document.getElementById('preview-container');
+            const downloadBtn = document.getElementById('download-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            
+            // Variáveis de estado
+            let files = []; 
+            
+            // Configurar listeners de eventos
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+            
+            dropArea.addEventListener('drop', handleDrop, false);
+            fileSelector.addEventListener('click', () => fileElem.click());
+            fileElem.addEventListener('change', handleFiles);
+            downloadBtn.addEventListener('click', handleDownload);
+            resetBtn.addEventListener('click', resetApp);
+            
+            document.querySelectorAll('input, select').forEach(input => {
+                input.addEventListener('change', updatePreview);
+                if (input.type === 'text' || input.type === 'number') {
+                    input.addEventListener('input', updatePreview);
+                }
+            });
+            
+            document.getElementById('search-pattern').addEventListener('input', updateRegexTest);
+            
+            // Configurar comportamento accordeon
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const item = this.parentElement;
+                    const isActive = item.classList.contains('active');
+                    
+                    document.querySelectorAll('.accordion-item').forEach(accordionItem => {
+                        accordionItem.classList.remove('active');
+                    });
+                    
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+            
+            // Funções auxiliares
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            function highlight() {
+                dropArea.classList.add('highlight');
+            }
+            
+            function unhighlight() {
+                dropArea.classList.remove('highlight');
+            }
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const newFiles = [...dt.files];
+                
+                if (newFiles && newFiles.length > 0) {
+                    handleFileList(newFiles);
+                }
+            }
+            
+            function handleFiles(e) {
+                const newFiles = [...e.target.files];
+                
+                if (newFiles && newFiles.length > 0) {
+                    handleFileList(newFiles);
+                }
+            }
+            
+            function handleFileList(newFiles) {
+                files = [...files, ...newFiles];
+                updateFileList();
+                updatePreview();
+                downloadBtn.disabled = files.length === 0;
+            }
+            
+            function updateFileList() {
+                fileCount.textContent = files.length;
+                fileListContainer.innerHTML = '';
+                
+                files.forEach((file, index) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    
+                    const fileName = document.createElement('div');
+                    fileName.className = 'file-name';
+                    fileName.textContent = file.name;
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-file';
+                    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    removeBtn.addEventListener('click', () => removeFile(index));
+                    
+                    fileItem.appendChild(fileName);
+                    fileItem.appendChild(removeBtn);
+                    fileListContainer.appendChild(fileItem);
+                });
+            }
+            
+            function removeFile(index) {
+                files.splice(index, 1);
+                updateFileList();
+                updatePreview();
+                downloadBtn.disabled = files.length === 0;
+            }
+            
+            function updatePreview() {
+                if (files.length === 0) {
+                    previewContainer.innerHTML = '<p>Nenhum arquivo selecionado</p>';
+                    return;
+                }
+                
+                const config = collectConfig();
+                
+                const processedFiles = files.map(file => {
+                    const fileObj = {
+                        originalFile: file,
+                        originalName: file.name,
+                        newName: file.name
+                    };
+                    
+                    if (config.useRegex && config.searchPattern) {
+                        fileObj.newName = regexHelper.replaceWithRegex(
+                            fileObj.newName,
+                            config.searchPattern,
+                            config.replacePattern
+                        );
+                    }
+                    
+                    if (config.useExtraction && config.extractionPattern) {
+                        fileObj.newName = regexHelper.extractWithPattern(
+                            fileObj.newName,
+                            config.extractionPattern,
+                            config.outputTemplate
+                        );
+                    }
+                    
+                    if (config.prefix || config.suffix) {
+                        fileObj.newName = fileProcessor.addPrefixSuffix(
+                            fileObj.newName,
+                            config.prefix,
+                            config.suffix,
+                            config.allowReference
+                        );
+                    }
+                    
+                    if (config.caseOption) {
+                        switch(config.caseOption) {
+                            case 'lowercase':
+                                fileObj.newName = fileObj.newName.toLowerCase();
+                                break;
+                            case 'uppercase':
+                                fileObj.newName = fileObj.newName.toUpperCase();
+                                break;
+                            case 'capitalize':
+                                fileObj.newName = fileObj.newName.replace(/\w\S*/g, 
+                                    txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                                );
+                                break;
+                        }
+                    }
+                    
+                    if (config.removeSpaces || config.replaceSpaces) {
+                        if (config.removeSpaces) {
+                            fileObj.newName = fileObj.newName.replace(/\s+/g, '');
+                        } else if (config.replaceSpaces) {
+                            fileObj.newName = fileObj.newName.replace(/\s+/g, config.replaceSpaces);
+                        }
+                    }
+                    
+                    if (config.removeAccents) {
+                        fileObj.newName = fileObj.newName.normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, '');
+                    }
+                    
+                    return fileObj;
+                });
+                
+                let filesForDisplay = processedFiles;
+                if (config.useSequentialNumbering) {
+                    filesForDisplay = sequentialNumbering.applyNumbering(
+                        processedFiles,
+                        config.startNumber,
+                        config.increment,
+                        config.numberFormat,
+                        config.padding,
+                        config.separator,
+                        config.sortBy
+                    );
+                }
+                
+                previewContainer.innerHTML = '';
+                
+                filesForDisplay.forEach(file => {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    
+                    const original = document.createElement('div');
+                    original.className = 'preview-original';
+                    original.textContent = file.originalName;
+                    
+                    const arrow = document.createElement('div');
+                    arrow.className = 'preview-arrow';
+                    arrow.innerHTML = '<i class="fas fa-arrow-right"></i>';
+                    
+                    const newName = document.createElement('div');
+                    newName.className = 'preview-new';
+                    newName.textContent = file.newName;
+                    
+                    previewItem.appendChild(original);
+                    previewItem.appendChild(arrow);
+                    previewItem.appendChild(newName);
+                    previewContainer.appendChild(previewItem);
+                });
+            }
+            
+            function collectConfig() {
+                return {
+                    useRegex: document.getElementById('use-regex').checked,
+                    searchPattern: document.getElementById('search-pattern').value,
+                    replacePattern: document.getElementById('replace-pattern').value,
+                    
+                    prefix: document.getElementById('prefix').value,
+                    suffix: document.getElementById('suffix').value,
+                    allowReference: document.getElementById('allow-reference').checked,
+                    
+                    caseOption: document.querySelector('input[name="case"]:checked')?.value || '',
+                    
+                    removeSpaces: document.getElementById('remove-spaces').checked,
+                    replaceSpaces: document.getElementById('replace-spaces').value,
+                    removeAccents: document.getElementById('remove-accents').checked,
+                    
+                    useSequentialNumbering: document.getElementById('start-number').value !== '',
+                    startNumber: parseInt(document.getElementById('start-number').value) || 1,
+                    increment: parseInt(document.getElementById('increment').value) || 1,
+                    numberFormat: document.getElementById('number-format').value,
+                    padding: parseInt(document.getElementById('padding').value) || 3,
+                    separator: document.getElementById('separator').value || '_',
+                    sortBy: document.getElementById('sort-by').value,
+                    
+                    useExtraction: document.getElementById('use-extraction').checked,
+                    extractionPattern: document.getElementById('extraction-pattern').value,
+                    outputTemplate: document.getElementById('output-template').value
+                };
+            }
+            
+            function handleDownload() {
+                if (files.length === 0) return;
+                
+                const config = collectConfig();
+                const processedFiles = fileProcessor.processFiles(files, config);
+                
+                if (processedFiles.length > 1) {
+                    fileProcessor.downloadAsZip(processedFiles);
+                } else {
+                    fileProcessor.downloadSingleFile(processedFiles[0]);
+                }
+            }
+            
+            function resetApp() {
+                files = [];
+                updateFileList();
+                
+                document.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => {
+                    input.value = '';
+                });
+                
+                document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
+                    input.checked = false;
+                });
+                
+                document.getElementById('start-number').value = '1';
+                document.getElementById('increment').value = '1';
+                document.getElementById('padding').value = '3';
+                document.getElementById('separator').value = '_';
+                document.getElementById('sort-by').value = 'name';
+                document.getElementById('number-format').value = 'prefix';
+                
+                updatePreview();
+                downloadBtn.disabled = true;
+            }
+            
+            function updateRegexTest() {
+                const patternField = document.getElementById('search-pattern');
+                const replaceField = document.getElementById('replace-pattern');
+                const testResultElement = document.getElementById('regex-test-result');
+                
+                if (!patternField.value) {
+                    testResultElement.textContent = 'Insira um padrão regex para teste';
+                    return;
+                }
+                
+                try {
+                    const testString = "exemplo_123.jpg";
+                    const pattern = new RegExp(patternField.value, 'g');
+                    const replacement = replaceField.value || "$&";
+                    
+                    const result = testString.replace(pattern, replacement);
+                    
+                    if (result === testString) {
+                        testResultElement.textContent = `Nenhuma correspondência em "${testString}"`;
+                    } else {
+                        testResultElement.innerHTML = `"${testString}" → "${result}"`;
+                    }
+                } catch (e) {
+                    testResultElement.textContent = `Erro: ${e.message}`;
+                }
+            }
+        });
+    </script>
+
+
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDnTLMQsA%2BjF1n%2BbMrWMBAgu7HDk95BO8W6s3O85NkHow%2B5fOHOr9G46RrFzvpfUPz4cMKrVS36U9PVA2yKL3cJNEf33Gyc3QFzc7R556YaIJ58IC7qirtXE5y1wjvmcz8cfV3VV%2FBb6L%2F%2BGDasAr6zJFDXoKiQJJAh4hvCpWozo8dlC9CRpM%2BUBwnYlxw1xWTbkQUaTvzOjFXSTlsmoh2CyAm84Q5upJpPXMLAaymU2%2Fgzqfz%2Fej0WGF6YKyKOHEZzDI%2B32K9B9mQok81ldLdBDQ6GIP%2FzEgE%2BM1LCI7nZzrF%2BLegRPZ%2FWkj27zmJojUZAsCgBp88PZglX4NrFf1%2FInBtLKE0OjJYl5k7MuSGfFHPxbK3r3Rex1p3hbYzvgiGedo3KvAEGPL%2BUSACMnGIaI0fhe5KN8S6DU%2BT2XCR%2Fkv3tXFZiWQGam%2BmSLKj784r8bVgd0PaZvXgCEJ4%2BQIMy8Xz%2FSzJejKeHq2kEkk3Na%2BiL%2FxbNxJSot5136eADDJLw%3D%3D";
+        window.__genspark_locale = "pt-BR";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDnTLMQsA+jF1n+bMrWMBAgu7HDk95BO8W6s3O85NkHow+5fOHOr9G46RrFzvpfUPz4cMKrVS36U9PVA2yKL3cJNEf33Gyc3QFzc7R556YaIJ58IC7qirtXE5y1wjvmcz8cfV3VV/Bb6L/+GDasAr6zJFDXoKiQJJAh4hvCpWozo8dlC9CRpM+UBwnYlxw1xWTbkQUaTvzOjFXSTlsmoh2CyAm84Q5upJpPXMLAaymU2/gzqfz/ej0WGF6YKyKOHEZzDI+32K9B9mQok81ldLdBDQ6GIP/zEgE+M1LCI7nZzrF+LegRPZ/Wkj27zmJojUZAsCgBp88PZglX4NrFf1/InBtLKE0OjJYl5k7MuSGfFHPxbK3r3Rex1p3hbYzvgiGedo3KvAEGPL+USACMnGIaI0fhe5KN8S6DU+T2XCR/kv3tXFZiWQGam+mSLKj784r8bVgd0PaZvXgCEJ4+QIMy8Xz/SzJejKeHq2kEkk3Na+iL/xbNxJSot5136eADDJLw==";
+    </script>
+    </body></html>
