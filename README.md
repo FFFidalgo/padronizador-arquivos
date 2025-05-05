@@ -24,16 +24,6 @@ Aplicativo web para padronização de nomes de arquivos com suporte a expressõe
 - CSS3
 - JavaScript (ES6+)
 
-## Executando localmente
-
-Para executar este projeto localmente:
-
-```
-git clone https://github.com/seu-usuario/padronizador-arquivos.git
-cd padronizador-arquivos
-```
-
-Abra o arquivo `index.html` em seu navegador.
 
 ## Licença
 
