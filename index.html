@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padronizador de Arquivos Avançado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Padronizador de Arquivos Avançado</h1>
+            <p>Renomeie e padronize seus arquivos com Regex e Numeração Sequencial</p>
+        </header>
+        
+        <main>
+            <!-- Área de upload -->
+            <section class="upload-area" id="drop-area">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Arraste seus arquivos aqui</h3>
+                <p>ou</p>
+                <button id="file-selector">Selecionar arquivos</button>
+                <input type="file" id="fileElem" multiple accept="*/*" style="display:none">
+            </section>
+            
+            <!-- Lista de arquivos -->
+            <section class="file-list">
+                <h3>Arquivos selecionados (<span id="file-count">0</span>)</h3>
+                <div id="file-list-container"></div>
+            </section>
+            
+            <!-- Ferramentas de edição -->
+            <div class="tools-container">
+                <!-- Substituição com Regex -->
+                <section class="tool-section">
+                    <div class="section-header">
+                        <h3>Substituição com Regex</h3>
+                        <p>Use expressões regulares para substituições avançadas</p>
+                    </div>
+                    <div class="section-content">
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="use-regex">
+                                <span class="checkmark"></span>
+                                <span>Usar expressões regulares</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-pattern">Procurar por:</label>
+                            <input type="text" id="search-pattern">
+                        </div>
+                        <div class="form-group">
+                            <label for="replace-pattern">Substituir por:</label>
+                            <input type="text" id="replace-pattern">
+                        </div>
+                        <div class="regex-tester">
+                            <h4>Testador de Regex</h4>
+                            <div id="regex-test-result" class="test-result">
+                                Resultado aparecerá aqui
+                            </div>
+                            <div class="examples">
+                                <p><strong>Exemplos:</strong></p>
+                                <ul>
+                                    <li><code>img_(\d+)</code> - captura números após "img_"</li>
+                                    <li><code>^(.*?)_(\d+)\.jpg$</code> - separa nome e número</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Prefixo/Sufixo -->
+                <section class="tool-section">
+                    <div class="section-header">
+                        <h3>Adicionar prefixo/sufixo</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="form-group">
+                            <label for="prefix">Prefixo:</label>
+                            <input type="text" id="prefix">
+                        </div>
+                        <div class="form-group">
+                            <label for="suffix">Sufixo (antes da extensão):</label>
+                            <input type="text" id="suffix">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="allow-reference">
+                                <span class="checkmark"></span>
+                                <span>Permitir referências de grupo ($1, $2) de regex</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Formatação de Texto -->
+                <section class="tool-section">
+                    <div class="section-header">
+                        <h3>Formatar texto</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="case-options">
+                            <div class="form-group">
+                                <label class="radio-container">
+                                    <input type="radio" name="case" value="lowercase">
+                                    <span class="radio-mark"></span>
+                                    <span>Minúsculas</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="radio-container">
+                                    <input type="radio" name="case" value="uppercase">
+                                    <span class="radio-mark"></span>
+                                    <span>MAIÚSCULAS</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="radio-container">
+                                    <input type="radio" name="case" value="capitalize">
+                                    <span class="radio-mark"></span>
+                                    <span>Primeira Letra Maiúscula</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remove-spaces">
+                                <span class="checkmark"></span>
+                                <span>Remover espaços</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="replace-spaces">Substituir espaços por:</label>
+                            <input type="text" id="replace-spaces">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="remove-accents">
+                                <span class="checkmark"></span>
+                                <span>Remover acentos</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Numeração Sequencial -->
+                <section class="tool-section">
+                    <div class="section-header">
+                        <h3>Numeração Sequencial</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="form-group">
+                            <label for="start-number">Número inicial:</label>
+                            <input type="number" id="start-number" value="1" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="increment">Incremento:</label>
+                            <input type="number" id="increment" value="1" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="number-format">Formato:</label>
+                            <select id="number-format">
+                                <option value="prefix">Prefixo (001_arquivo.txt)</option>
+                                <option value="suffix">Sufixo (arquivo_001.txt)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="padding">Dígitos (preenchimento com zeros):</label>
+                            <input type="number" id="padding" value="3" min="1" max="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="separator">Separador:</label>
+                            <input type="text" id="separator" value="_" maxlength="5">
+                        </div>
+                        <div class="form-group">
+                            <label for="sort-by">Ordenar arquivos por:</label>
+                            <select id="sort-by">
+                                <option value="name">Nome (alfabético)</option>
+                                <option value="date">Data de modificação</option>
+                                <option value="size">Tamanho do arquivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Extração com padrões -->
+                <section class="tool-section">
+                    <div class="section-header">
+                        <h3>Extração com padrões</h3>
+                        <p>Extrair partes específicas do nome usando regex e referenciá-las</p>
+                    </div>
+                    <div class="section-content">
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="use-extraction">
+                                <span class="checkmark"></span>
+                                <span>Ativar extração de padrões</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="extraction-pattern">Padrão de extração:</label>
+                            <input type="text" id="extraction-pattern">
+                            <small class="help-text">Use parênteses para definir grupos de captura. Acesse-os como $1, $2, etc.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="output-template">Template de saída:</label>
+                            <input type="text" id="output-template">
+                            <small class="help-text">Use $1, $2 para se referir aos grupos capturados no padrão acima.</small>
+                        </div>
+                        <div class="example-block">
+                            <p><strong>Exemplo:</strong> Para o arquivo "documento_2023.pdf"</p>
+                            <p>Padrão <code>^(.*)_(\d+)$</code> captura "documento" como $1 e "2023" como $2</p>
+                            <p>Template <code>$2_$1</code> resultará em "2023_documento.pdf"</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Prévia de resultados -->
+            <section class="preview-section">
+                <h3>Prévia dos resultados</h3>
+                <div id="preview-container"></div>
+            </section>
+            
+            <!-- Ações -->
+            <div class="action-buttons">
+                <button id="reset-btn" class="btn-secondary">Limpar</button>
+                <button id="download-btn" class="btn-primary" disabled>
+                    <i class="fas fa-download"></i> Baixar arquivos renomeados
+                </button>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Desenvolvido para padronização de nomes de arquivos | 2025</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="js/regexHelper.js"></script>
+    <script src="js/sequentialNumbering.js"></script>
+    <script src="js/fileProcessor.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
